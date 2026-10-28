@@ -6,7 +6,7 @@
 <title>Área das Famílias · Profª Ana Clara</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Caveat:wght@700&family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #DDEFFF; --dots: #b9dcff; --paper: #ffffff; --ink: #1B1F3B; --muted: #4a5075;
@@ -54,10 +54,9 @@
   /* ---------- Topo com o nome da professora ---------- */
   .topo { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 40px; }
   .nome {
-    font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400;
-    font-size: clamp(1.35rem, 6.6vw, 1.9rem); letter-spacing: 1.5px; line-height: 1; color: var(--ink);
-    white-space: nowrap;
-    text-shadow: 2px 2px 0 var(--yellow);
+    font: 700 1.45rem/1 "Caveat", "Segoe Script", cursive;
+    color: var(--blue); white-space: nowrap; padding: 0 5px;
+    background: linear-gradient(transparent 62%, rgba(255,210,63,.8) 62%, rgba(255,210,63,.8) 88%, transparent 88%);
   }
   .ord {
     font-size: .55em; vertical-align: .62em; letter-spacing: 0; margin-left: .05em;
@@ -77,9 +76,8 @@
     box-shadow: 6px 6px 0 var(--ink);
   }
   h1 {
-    font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400;
-    font-size: clamp(2rem, 9vw, 2.5rem); letter-spacing: 1.5px; line-height: 1.05;
-    margin: 0 0 8px; text-shadow: 3px 3px 0 var(--yellow);
+    font: 700 clamp(2.3rem, 10.5vw, 2.8rem)/1 "Caveat", "Segoe Script", cursive;
+    color: var(--ink); margin: 0 0 8px; text-wrap: balance;
   }
   .sub { margin: 0 0 18px; color: var(--muted); font-weight: 600; }
 
@@ -126,7 +124,7 @@
 
   /* ---------- Lista de atividades ---------- */
   .boasvindas { margin: 28px 0 20px; }
-  .boasvindas h1 { font-size: clamp(2.1rem, 10vw, 2.7rem); }
+  .boasvindas h1 { font-size: clamp(2.6rem, 12vw, 3.2rem); }
   .boasvindas .sub { margin: 0; }
   .lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
   .mod {
@@ -165,7 +163,7 @@
   #tela-site.ativa { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
   .barra {
     display: flex; align-items: center; gap: 10px; padding: 5px 10px;
-    background: var(--paper); border-bottom: 1.5px solid rgba(27,31,59,.18);
+    background: var(--bg); border-bottom: 1.5px solid var(--dots);
   }
   .barra button {
     flex-shrink: 0; padding: 3px 10px; cursor: pointer; white-space: nowrap;
@@ -192,9 +190,9 @@
   }
   @media (min-width: 1024px) {
     body { font-size: 18px; }
-    .nome { font-size: 2.3rem; }
+    .nome { font-size: 1.75rem; }
     .whats { font-size: .85rem; padding: 7px 16px 7px 13px; }
-    .boasvindas h1 { font-size: 3.3rem; }
+    .boasvindas h1 { font-size: 3.8rem; }
     .selo { width: 64px; height: 64px; font-size: 2.1rem; }
     .barra { padding: 6px 20px; }
   }
