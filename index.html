@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Área das Famílias · Profª Ana Clara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lousa: #2f4f40;
+    --giz: #f5f3ec;
+    --giz-suave: rgba(245, 243, 236, .68);
+    --linha: rgba(245, 243, 236, .22);
+    --amarelo: #f3d77e;
+    --rosa: #f2b0a6;
+    --azul: #a8d4e8;
+    --tinta: #23302b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font: 17px/1.55 "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--giz);
+    background: var(--lousa);
+  }
+
+  .tela { display: none; min-height: 100%; padding: 56px 16px 32px; }
+  .tela.ativa { display: block; }
+  .lousa {
+    max-width: 400px; margin: 0 auto;
+    min-height: calc(100vh - 88px); min-height: calc(100dvh - 88px);
+    display: flex; flex-direction: column;
+  }
+  .conteudo { flex: 1; }
+
+  h1 {
+    font-family: "Patrick Hand", "Nunito", cursive;
+    font-weight: 400; font-size: 2.1rem; line-height: 1.15; margin: 0 0 12px;
+  }
+  .sublinhado { display: block; width: 48px; height: 3px; margin: 0 0 22px; background: var(--amarelo); border-radius: 3px; }
+  p { margin: 0 0 20px; color: var(--giz-suave); }
+
+  label { display: block; margin: 18px 0 6px; font-size: .9rem; color: var(--giz-suave); }
+  input {
+    width: 100%; font: inherit; padding: 12px 14px;
+    border: 1px solid transparent; border-radius: 10px;
+    color: var(--tinta); background: var(--giz);
+  }
+  input::placeholder { color: #8b918d; }
+  input:focus { outline: 2px solid var(--amarelo); outline-offset: 2px; }
+  #codigo { font-size: 1.6rem; letter-spacing: .35em; text-align: center; }
+
+  button, .botao {
+    display: block; width: 100%; margin-top: 24px; padding: 13px 16px;
+    font: inherit; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none;
+    color: var(--tinta); background: var(--amarelo); border: 0; border-radius: 10px;
+  }
+  button:hover, .botao:hover { filter: brightness(1.05); }
+  button:disabled { opacity: .6; cursor: wait; }
+  .secundario { background: transparent; color: var(--giz); border: 1px solid var(--linha); font-weight: 600; }
+  .secundario:hover { background: rgba(255,255,255,.05); }
+  .link {
+    background: none; color: var(--giz-suave); font-weight: 400;
+    text-decoration: underline; margin-top: 14px; padding: 4px;
+  }
+
+  .msg { display: none; margin-top: 18px; font-size: .95rem; }
+  .msg.erro { display: block; color: var(--rosa); }
+  .msg.info { display: block; color: var(--azul); }
+
+  .lista { list-style: none; padding: 0; margin: 8px 0 0; border-top: 1px solid var(--linha); }
+  .lista li { border-bottom: 1px solid var(--linha); }
+  .lista button {
+    margin: 0; padding: 18px 28px 18px 0; text-align: left; border-radius: 0;
+    background: none; color: var(--giz); font-weight: 600; position: relative;
+  }
+  .lista button::after { content: "→"; position: absolute; right: 4px; color: var(--amarelo); }
+  .lista button:hover { filter: none; color: #fff; }
+  .vazio { color: var(--giz-suave); padding: 18px 0; }
+
+  .assinatura {
+    margin-top: 40px; text-align: right;
+    font-family: "Patrick Hand", "Nunito", cursive; font-size: 1.1rem; color: #fff; opacity: .9;
+  }
+
+  #tela-site { padding: 0; height: 100%; }
+  #tela-site.ativa { display: flex; flex-direction: column; }
+  .barra {
+    display: flex; align-items: center; gap: 12px; padding: 8px 12px;
+    background: var(--lousa); color: var(--giz-suave); font-size: .9rem;
+  }
+  .barra button {
+    width: auto; margin: 0; padding: 6px 12px; font-weight: 600;
+    white-space: nowrap; flex-shrink: 0;
+    background: transparent; color: var(--giz); border: 1px solid var(--linha);
+  }
+  .barra span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  iframe { flex: 1; width: 100%; border: 0; background: #fff; }
+  .tela { position: relative; }
+  .whats {
+    position: fixed; top: 14px; right: 16px; z-index: 10;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 999px;
+    font-weight: 700; font-size: .95rem; text-decoration: none;
+    color: var(--tinta); background: var(--amarelo);
+  }
+  .whats:hover { filter: brightness(1.05); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     ÚNICA PARTE QUE VOCÊ PRECISA MUDAR:
+     troque o endereço abaixo pelo "Project URL" do seu Supabase.
+     O WhatsApp já está com o seu número (só números, com 55 e DDD).
+     ============================================================ -->
+<script>
+  const SUPABASE_URL = "https://yfeocssnbnunvetjtcfq.supabase.co";
+  const WHATSAPP_PROFESSORA = "5511976280903";
+</script>
+
+  <a id="botao-whatsapp" class="whats" target="_blank" rel="noopener" aria-label="Abrir o WhatsApp">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+    WhatsApp
+  </a>
+
+<section id="tela-entrar" class="tela">
+  <a id="whats-inicio" class="whats" target="_blank" rel="noopener" aria-label="Falar com a professora no WhatsApp">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+    WhatsApp
+  </a>
+  <div class="lousa">
+    <div class="conteudo">
+    <h1>Área das Famílias</h1>
+    <span class="sublinhado"></span>
+    <p>Digite o e-mail usado na compra para liberar este aparelho.</p>
+    <form id="form-entrar">
+      <label for="email">E-mail da compra</label>
+      <input id="email" type="email" autocomplete="email" required>
+      <label for="apelido">Nome deste aparelho</label>
+      <input id="apelido" type="text" maxlength="60" placeholder="Ex.: Celular da mãe">
+      <button type="submit">Pedir código</button>
+    </form>
+    <div id="msg-entrar" class="msg"></div>
+    </div>
+    <div class="assinatura">Profª Ana Clara T. Arrais</div>
+  </div>
+</section>
+
+<section id="tela-codigo" class="tela">
+  <div class="lousa">
+    <div class="conteudo">
+    <h1>Peça o código à professora</h1>
+    <span class="sublinhado"></span>
+    <p>Toque em <strong>WhatsApp</strong>, no canto de cima, e avise que pediu o código. Ela vai responder com 6 números. O código vale por 24 horas e só funciona neste aparelho.</p>
+    <form id="form-codigo">
+      <label for="codigo">Código de 6 números</label>
+      <input id="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="7" required>
+      <button type="submit">Liberar aparelho</button>
+    </form>
+    <div id="msg-codigo" class="msg"></div>
+    <button id="pedir-de-novo" class="link" type="button">Pedir outro código</button>
+    </div>
+    <div class="assinatura">Profª Ana Clara T. Arrais</div>
+  </div>
+</section>
+
+<section id="tela-lista" class="tela">
+  <div class="lousa">
+    <div class="conteudo">
+    <h1 id="ola">Olá!</h1>
+    <span class="sublinhado"></span>
+    <p>Escolha a atividade de hoje:</p>
+    <ul id="lista-sites" class="lista"></ul>
+    <div id="msg-lista" class="msg"></div>
+    </div>
+    <div class="assinatura">Profª Ana Clara T. Arrais</div>
+  </div>
+</section>
+
+<section id="tela-site" class="tela">
+  <div class="barra">
+    <button id="voltar" type="button">← Voltar</button>
+    <span id="licenca"></span>
+  </div>
+  <iframe id="quadro" title="Atividade"></iframe>
+</section>
+
+<script>
+  const FUNCAO = SUPABASE_URL.replace(/\/+$/, "") + "/functions/v1/acesso";
+  const $ = (id) => document.getElementById(id);
+
+  // Guarda pequena no navegador (o "crachá" e o pedido em andamento)
+  const guarda = {
+    ler(chave) { try { return localStorage.getItem(chave); } catch { return null; } },
+    gravar(chave, valor) { try { localStorage.setItem(chave, valor); } catch {} },
+    apagar(chave) { try { localStorage.removeItem(chave); } catch {} },
+  };
+
+  function mostrar(tela) {
+    document.querySelectorAll(".tela").forEach((t) => t.classList.remove("ativa"));
+    $(tela).classList.add("ativa");
+    $("botao-whatsapp").style.display = tela === "tela-site" ? "none" : "";
+    $("botao-whatsapp").href = linkWhatsApp(tela === "tela-codigo" ? guarda.ler("pedido_email") : "");
+    window.scrollTo(0, 0);
+  }
+
+  function aviso(id, texto, tipo = "erro") {
+    const el = $(id);
+    el.className = "msg " + (texto ? tipo : "");
+    el.textContent = texto || "";
+  }
+
+  async function chamar(dados) {
+    let r;
+    try {
+      r = await fetch(FUNCAO, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados),
+      });
+    } catch {
+      throw new Error("Sem conexão. Confira a internet e tente de novo.");
+    }
+    let json = {};
+    try { json = await r.json(); } catch {}
+    if (!r.ok) {
+      const e = new Error(json.erro || json.msg || json.message || "Algo deu errado. Tente de novo.");
+      e.motivo = json.motivo;
+      throw e;
+    }
+    return json;
+  }
+
+  async function ocupado(botao, tarefa) {
+    botao.disabled = true;
+    try { await tarefa(); } finally { botao.disabled = false; }
+  }
+
+  function linkWhatsApp(email) {
+    const texto = email
+      ? "Olá, professora! Pedi o código de acesso para o e-mail " + email + "."
+      : "Olá, professora!";
+    return "https://wa.me/" + WHATSAPP_PROFESSORA + "?text=" + encodeURIComponent(texto);
+  }
+
+  // ---------- 1. Pedir código ----------
+  $("form-entrar").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const botao = ev.submitter || ev.target.querySelector("button");
+    ocupado(botao, async () => {
+      aviso("msg-entrar", "");
+      const email = $("email").value.trim().toLowerCase();
+      try {
+        const r = await chamar({ acao: "pedir_codigo", email, apelido: $("apelido").value.trim() });
+        guarda.gravar("pedido_id", r.pedido_id);
+        guarda.gravar("pedido_email", email);
+        abrirTelaCodigo();
+      } catch (e) {
+        aviso("msg-entrar", e.message);
+      }
+    });
+  });
+
+  function abrirTelaCodigo() {
+    $("codigo").value = "";
+    aviso("msg-codigo", "");
+    mostrar("tela-codigo");
+    $("codigo").focus();
+  }
+
+  // ---------- 2. Confirmar código ----------
+  $("form-codigo").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const botao = ev.submitter || ev.target.querySelector("button");
+    ocupado(botao, async () => {
+      aviso("msg-codigo", "");
+      try {
+        const r = await chamar({
+          acao: "confirmar_codigo",
+          pedido_id: guarda.ler("pedido_id"),
+          codigo: $("codigo").value,
+        });
+        guarda.gravar("cracha", r.token);
+        guarda.apagar("pedido_id");
+        carregarLista();
+      } catch (e) {
+        aviso("msg-codigo", e.message);
+      }
+    });
+  });
+
+  $("pedir-de-novo").addEventListener("click", () => {
+    guarda.apagar("pedido_id");
+    $("email").value = guarda.ler("pedido_email") || "";
+    aviso("msg-entrar", "");
+    mostrar("tela-entrar");
+  });
+
+  // ---------- 3. Lista de atividades ----------
+  function semCracha(e) {
+    if (e.motivo === "aparelho") {
+      guarda.apagar("cracha");
+      aviso("msg-entrar", e.message, "info");
+      mostrar("tela-entrar");
+      return true;
+    }
+    return false;
+  }
+
+  async function carregarLista() {
+    aviso("msg-lista", "");
+    try {
+      const r = await chamar({ acao: "listar", token: guarda.ler("cracha") });
+      $("ola").textContent = "Olá, " + r.familia + "!";
+      const ul = $("lista-sites");
+      ul.replaceChildren();
+      if (!r.sites.length) {
+        const li = document.createElement("li");
+        li.className = "vazio";
+        li.textContent = "Nenhuma atividade publicada ainda.";
+        ul.append(li);
+      }
+      r.sites.forEach((s) => {
+        const li = document.createElement("li");
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = s.titulo;
+        b.addEventListener("click", () => ocupado(b, () => abrirSite(s.slug)));
+        li.append(b);
+        ul.append(li);
+      });
+      mostrar("tela-lista");
+    } catch (e) {
+      if (!semCracha(e)) {
+        mostrar("tela-lista");
+        aviso("msg-lista", e.message);
+      }
+    }
+  }
+
+  // ---------- 4. Abrir uma atividade ----------
+  function marcaDagua(nome) {
+    const seguro = nome.replace(/[&<>"']/g, (c) => "&#" + c.charCodeAt(0) + ";");
+    return '<div style="position:fixed;right:10px;bottom:8px;z-index:2147483647;pointer-events:none;' +
+      'font:12px system-ui,sans-serif;color:#000;opacity:.45;background:#fff;padding:2px 8px;border-radius:6px">' +
+      "Licenciado para " + seguro + "</div>";
+  }
+
+  async function abrirSite(slug) {
+    try {
+      const r = await chamar({ acao: "abrir", token: guarda.ler("cracha"), slug });
+      const html = /<\/body>/i.test(r.html)
+        ? r.html.replace(/<\/body>(?![\s\S]*<\/body>)/i, marcaDagua(r.familia) + "</body>")
+        : r.html + marcaDagua(r.familia);
+      $("licenca").textContent = r.titulo + " · Licenciado para " + r.familia;
+      $("quadro").srcdoc = html;
+      mostrar("tela-site");
+    } catch (e) {
+      if (!semCracha(e)) aviso("msg-lista", e.message);
+    }
+  }
+
+  $("voltar").addEventListener("click", () => {
+    $("quadro").srcdoc = "";
+    mostrar("tela-lista");
+  });
+
+  // ---------- Início ----------
+  $("whats-inicio").href = "https://wa.me/" + WHATSAPP_PROFESSORA + "?text=" +
+    encodeURIComponent("Olá, professora! Quero saber mais sobre as atividades.");
+  if (guarda.ler("cracha")) carregarLista();
+  else if (guarda.ler("pedido_id")) abrirTelaCodigo();
+  else mostrar("tela-entrar");
+</script>
+</body>
+</html>
