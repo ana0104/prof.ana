@@ -6,184 +6,252 @@
 <title>Área das Famílias · Profª Ana Clara</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --lousa: #2f4f40;
-    --giz: #f5f3ec;
-    --giz-suave: rgba(245, 243, 236, .68);
-    --linha: rgba(245, 243, 236, .22);
-    --amarelo: #f3d77e;
-    --rosa: #f2b0a6;
-    --azul: #a8d4e8;
-    --tinta: #23302b;
+    --bg: #DDEFFF; --dots: #b9dcff; --paper: #ffffff; --ink: #1B1F3B; --muted: #4a5075;
+    --yellow: #FFD23F; --blue: #2F6FEB; --pink: #FF5C8A; --ok: #1F9E6E;
+    --bad: #D6334A; --badbg: #FDE3E7; --info: #2F6FEB; --infobg: #E3EDFF;
+    --board: #1f4d3a; --board-hi: #2c6b52; --board-lo: #183c2d;
+    --wood: #b07a3c; --wood-dk: #8a5d2a; --chalk: #ffffff;
+    --zap: #17994A;
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141833; --dots: #1f2550; --paper: #1e2346; --ink: #F2F4FF; --muted: #aab0d6;
+      --blue: #7FA8FF; --bad: #FF7A8C; --badbg: #3d1c29; --info: #7FA8FF; --infobg: #1f2a55;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141833; --dots: #1f2550; --paper: #1e2346; --ink: #F2F4FF; --muted: #aab0d6;
+    --blue: #7FA8FF; --bad: #FF7A8C; --badbg: #3d1c29; --info: #7FA8FF; --infobg: #1f2a55;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
   body {
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--dots) 1.4px, transparent 1.6px);
+    background-size: 22px 22px;
+    color: var(--ink);
     font: 17px/1.55 "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
-    color: var(--giz);
-    background: var(--lousa);
   }
+  .wrap { max-width: 460px; margin: 0 auto; padding: 20px 16px 40px; }
 
-  .tela { display: none; min-height: 100%; padding: 56px 16px 32px; }
+  /* ---------- Botão de WhatsApp (canto superior direito) ---------- */
+  .whats {
+    flex: none; display: inline-flex; align-items: center; gap: 7px;
+    padding: 5px 14px 5px 11px; border-radius: 999px;
+    font-weight: 800; font-size: .8rem; letter-spacing: 1.2px; text-transform: uppercase;
+    color: #fff; background: var(--zap); text-decoration: none;
+    border: 2.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    transition: transform .1s ease, box-shadow .1s ease;
+  }
+  .whats svg { width: 17px; height: 17px; }
+  .whats:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .whats:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+  /* ---------- Topo com o nome da professora ---------- */
+  .topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 40px; }
+  .nome {
+    font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400;
+    font-size: clamp(1.5rem, 7.5vw, 1.9rem); letter-spacing: 1.5px; line-height: 1; color: var(--ink);
+    white-space: nowrap;
+    text-shadow: 2px 2px 0 var(--yellow);
+  }
+  .ord {
+    font-size: .55em; vertical-align: .62em; letter-spacing: 0; margin-left: .05em;
+    text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .14em;
+  }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Telas ---------- */
+  .tela { display: none; }
   .tela.ativa { display: block; }
-  .lousa {
-    max-width: 400px; margin: 0 auto;
-    min-height: calc(100vh - 88px); min-height: calc(100dvh - 88px);
-    display: flex; flex-direction: column;
-  }
-  .conteudo { flex: 1; }
+  body[data-tela="tela-site"] .wrap { display: none; }
+  body[data-tela="tela-lista"] .whats { visibility: hidden; }
 
+  .painel {
+    margin-top: 20px; padding: 22px 18px 20px;
+    background: var(--paper); border: 3px solid var(--ink); border-radius: 6px;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
   h1 {
-    font-family: "Patrick Hand", "Nunito", cursive;
-    font-weight: 400; font-size: 2.1rem; line-height: 1.15; margin: 0 0 12px;
+    font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400;
+    font-size: clamp(2rem, 9vw, 2.5rem); letter-spacing: 1.5px; line-height: 1.05;
+    margin: 0 0 8px; text-shadow: 3px 3px 0 var(--yellow);
   }
-  .sublinhado { display: block; width: 48px; height: 3px; margin: 0 0 22px; background: var(--amarelo); border-radius: 3px; }
-  p { margin: 0 0 20px; color: var(--giz-suave); }
+  .sub { margin: 0 0 18px; color: var(--muted); font-weight: 600; }
 
-  label { display: block; margin: 18px 0 6px; font-size: .9rem; color: var(--giz-suave); }
+  label { display: block; margin: 16px 0 6px; font-weight: 800; font-size: .95rem; }
   input {
-    width: 100%; font: inherit; padding: 12px 14px;
-    border: 1px solid transparent; border-radius: 10px;
-    color: var(--tinta); background: var(--giz);
+    width: 100%; font: inherit; padding: 11px 13px; color: var(--ink); background: var(--paper);
+    border: 3px solid var(--ink); border-radius: 6px;
   }
-  input::placeholder { color: #8b918d; }
-  input:focus { outline: 2px solid var(--amarelo); outline-offset: 2px; }
-  #codigo { font-size: 1.6rem; letter-spacing: .35em; text-align: center; }
+  input::placeholder { color: var(--muted); opacity: .75; }
+  input:focus { outline: 3px solid var(--blue); outline-offset: 2px; }
+  #codigo {
+    font-family: "Bangers", Impact, sans-serif; font-size: 2.2rem; letter-spacing: .4em;
+    text-align: center; padding: 8px 0 8px .4em;
+  }
 
-  button, .botao {
-    display: block; width: 100%; margin-top: 24px; padding: 13px 16px;
-    font: inherit; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none;
-    color: var(--tinta); background: var(--amarelo); border: 0; border-radius: 10px;
+  .btn {
+    display: block; width: 100%; margin-top: 22px; padding: 12px 16px; cursor: pointer;
+    font: inherit; font-weight: 800; font-size: 1.05rem; letter-spacing: .5px; text-transform: uppercase;
+    color: #1B1F3B; background: var(--yellow);
+    border: 3px solid var(--ink); border-radius: 6px; box-shadow: 4px 4px 0 var(--ink);
+    transition: transform .08s ease, box-shadow .08s ease;
   }
-  button:hover, .botao:hover { filter: brightness(1.05); }
-  button:disabled { opacity: .6; cursor: wait; }
-  .secundario { background: transparent; color: var(--giz); border: 1px solid var(--linha); font-weight: 600; }
-  .secundario:hover { background: rgba(255,255,255,.05); }
+  .btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+  .btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn:disabled { opacity: .6; cursor: wait; }
+  .btn:focus-visible, .link:focus-visible, .mod:focus-visible, .whats:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
   .link {
-    background: none; color: var(--giz-suave); font-weight: 400;
-    text-decoration: underline; margin-top: 14px; padding: 4px;
+    display: block; margin: 16px auto 0; padding: 4px; cursor: pointer;
+    font: inherit; font-weight: 800; color: var(--blue); background: none; border: 0;
   }
 
-  .msg { display: none; margin-top: 18px; font-size: .95rem; }
-  .msg.erro { display: block; color: var(--rosa); }
-  .msg.info { display: block; color: var(--azul); }
+  .msg { display: none; margin-top: 18px; padding: 10px 12px; border-radius: 0 6px 6px 0; font-weight: 600; font-size: .95rem; }
+  .msg.erro { display: block; color: var(--bad); background: var(--badbg); border-left: 5px solid var(--bad); }
+  .msg.info { display: block; color: var(--info); background: var(--infobg); border-left: 5px solid var(--info); }
 
-  .lista { list-style: none; padding: 0; margin: 8px 0 0; border-top: 1px solid var(--linha); }
-  .lista li { border-bottom: 1px solid var(--linha); }
-  .lista button {
-    margin: 0; padding: 18px 28px 18px 0; text-align: left; border-radius: 0;
-    background: none; color: var(--giz); font-weight: 600; position: relative;
-  }
-  .lista button::after { content: "→"; position: absolute; right: 4px; color: var(--amarelo); }
-  .lista button:hover { filter: none; color: #fff; }
-  .vazio { color: var(--giz-suave); padding: 18px 0; }
-
-  .assinatura {
-    margin-top: 40px; text-align: right;
-    font-family: "Patrick Hand", "Nunito", cursive; font-size: 1.1rem; color: #fff; opacity: .9;
+  .passos { list-style: none; padding: 0; margin: 0 0 4px; display: grid; gap: 8px; }
+  .passos li { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; }
+  .passos b {
+    flex: none; width: 26px; height: 26px; display: grid; place-items: center;
+    font-family: "Bangers", Impact, sans-serif; font-weight: 400; font-size: 1.05rem; color: #1B1F3B;
+    background: var(--yellow); border: 2px solid var(--ink); border-radius: 50%;
   }
 
-  #tela-site { padding: 0; height: 100%; }
-  #tela-site.ativa { display: flex; flex-direction: column; }
+  /* ---------- Lista de atividades ---------- */
+  .boasvindas { margin: 28px 0 20px; }
+  .boasvindas h1 { font-size: clamp(2.1rem, 10vw, 2.7rem); }
+  .boasvindas .sub { margin: 0; }
+  .lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
+  .mod {
+    position: relative; display: flex; gap: 14px; align-items: center; width: 100%;
+    padding: 16px 14px; cursor: pointer; font: inherit; text-align: left;
+    color: var(--ink); background: var(--paper);
+    border: 3px solid var(--c); border-radius: 8px;
+    box-shadow: 8px 8px 0 var(--c), 10px 14px 18px rgba(20,24,51,.18);
+    transition: transform .08s ease, box-shadow .08s ease;
+  }
+  .mod:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0 var(--c), 13px 17px 22px rgba(20,24,51,.22); }
+  .mod:active { transform: translate(4px, 4px); box-shadow: 3px 3px 0 var(--c), 4px 6px 10px rgba(20,24,51,.14); }
+  .mod:disabled { opacity: .6; cursor: wait; }
+  .selo {
+    flex: none; width: 58px; height: 58px; display: grid; place-items: center;
+    font-family: "Bangers", Impact, sans-serif; font-size: 1.9rem; color: #1B1F3B;
+    background: var(--cc); border: 3px solid var(--ink); border-radius: 50%;
+    transform: rotate(-6deg);
+  }
+  .mod > span:nth-child(2) { flex: 1; min-width: 0; }
+  .mod strong { display: block; font-size: 1.08rem; font-weight: 800; line-height: 1.25; }
+  .mod small { display: block; margin-top: 4px; color: var(--c); font-size: .85rem; font-weight: 800; letter-spacing: .3px; }
+  .seta {
+    flex: none; width: 34px; height: 34px; display: grid; place-items: center;
+    font-weight: 800; font-size: 1.1rem; color: #fff; background: var(--c);
+    border: 2.5px solid var(--ink); border-radius: 50%;
+  }
+  .vazio {
+    padding: 22px 16px; text-align: center; color: var(--muted); font-weight: 700;
+    background: var(--paper); border: 3px dashed var(--muted); border-radius: 8px;
+  }
+
+  .rodape { margin-top: 26px; text-align: center; color: var(--muted); font-size: .85rem; font-weight: 600; }
+
+  /* ---------- Tela da atividade ---------- */
+  #tela-site.ativa { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
   .barra {
-    display: flex; align-items: center; gap: 12px; padding: 8px 12px;
-    background: var(--lousa); color: var(--giz-suave); font-size: .9rem;
+    display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+    background: var(--bg); border-bottom: 3px solid var(--ink);
   }
   .barra button {
-    width: auto; margin: 0; padding: 6px 12px; font-weight: 600;
-    white-space: nowrap; flex-shrink: 0;
-    background: transparent; color: var(--giz); border: 1px solid var(--linha);
+    flex-shrink: 0; padding: 7px 13px; cursor: pointer; white-space: nowrap;
+    font: inherit; font-weight: 800; font-size: .95rem; color: #1B1F3B; background: var(--yellow);
+    border: 2.5px solid var(--ink); border-radius: 6px; box-shadow: 3px 3px 0 var(--ink);
   }
-  .barra span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .barra button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .barra-texto { min-width: 0; line-height: 1.2; }
+  .barra-texto strong, .barra-texto small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .barra-texto strong { font-weight: 800; font-size: .98rem; color: var(--ink); }
+  .barra-texto small { margin-top: 2px; font-size: .78rem; font-weight: 600; color: var(--muted); }
+  @media (max-width: 380px) { .barra button span { display: none; } }
   iframe { flex: 1; width: 100%; border: 0; background: #fff; }
-  .tela { position: relative; }
-  .whats {
-    position: fixed; top: 14px; right: 16px; z-index: 10;
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 14px; border-radius: 999px;
-    font-weight: 700; font-size: .95rem; text-decoration: none;
-    color: var(--tinta); background: var(--amarelo);
-  }
-  .whats:hover { filter: brightness(1.05); }
 </style>
 </head>
 <body>
 
 <!-- ============================================================
-     ÚNICA PARTE QUE VOCÊ PRECISA MUDAR:
-     troque o endereço abaixo pelo "Project URL" do seu Supabase.
-     O WhatsApp já está com o seu número (só números, com 55 e DDD).
+     CONFIGURAÇÃO: endereço do Supabase e WhatsApp da professora
+     (só números, com 55 e DDD).
      ============================================================ -->
 <script>
   const SUPABASE_URL = "https://yfeocssnbnunvetjtcfq.supabase.co";
   const WHATSAPP_PROFESSORA = "5511976280903";
 </script>
 
-  <a id="botao-whatsapp" class="whats" target="_blank" rel="noopener" aria-label="Abrir o WhatsApp">
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
-    WhatsApp
-  </a>
+<div class="wrap">
+  <header class="topo">
+    <span class="nome"><span aria-hidden="true">Prof<span class="ord">a</span> Ana Clara</span><span class="sr">Professora Ana Clara</span></span>
+    <a id="botao-whatsapp" class="whats" target="_blank" rel="noopener" aria-label="Falar com a professora no WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+      WhatsApp
+    </a>
+  </header>
 
-<section id="tela-entrar" class="tela">
-  <a id="whats-inicio" class="whats" target="_blank" rel="noopener" aria-label="Falar com a professora no WhatsApp">
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
-    WhatsApp
-  </a>
-  <div class="lousa">
-    <div class="conteudo">
-    <h1>Área das Famílias</h1>
-    <span class="sublinhado"></span>
-    <p>Digite o e-mail usado na compra para liberar este aparelho.</p>
-    <form id="form-entrar">
-      <label for="email">E-mail da compra</label>
-      <input id="email" type="email" autocomplete="email" required>
-      <label for="apelido">Nome deste aparelho</label>
-      <input id="apelido" type="text" maxlength="60" placeholder="Ex.: Celular da mãe">
-      <button type="submit">Pedir código</button>
-    </form>
-    <div id="msg-entrar" class="msg"></div>
+  <section id="tela-entrar" class="tela">
+    <div class="painel">
+      <h1>Área das Famílias</h1>
+      <p class="sub">Digite o e-mail usado na compra para liberar este aparelho.</p>
+      <form id="form-entrar">
+        <label for="email">E-mail da compra</label>
+        <input id="email" type="email" autocomplete="email" placeholder="seuemail@exemplo.com" required>
+        <label for="apelido">Nome deste aparelho</label>
+        <input id="apelido" type="text" maxlength="60" placeholder="Ex.: Celular da mãe">
+        <button class="btn" type="submit">Pedir código</button>
+      </form>
+      <div id="msg-entrar" class="msg"></div>
     </div>
-    <div class="assinatura">Profª Ana Clara T. Arrais</div>
-  </div>
-</section>
+  </section>
 
-<section id="tela-codigo" class="tela">
-  <div class="lousa">
-    <div class="conteudo">
-    <h1>Peça o código à professora</h1>
-    <span class="sublinhado"></span>
-    <p>Toque em <strong>WhatsApp</strong>, no canto de cima, e avise que pediu o código. Ela vai responder com 6 números. O código vale por 24 horas e só funciona neste aparelho.</p>
-    <form id="form-codigo">
-      <label for="codigo">Código de 6 números</label>
-      <input id="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="7" required>
-      <button type="submit">Liberar aparelho</button>
-    </form>
-    <div id="msg-codigo" class="msg"></div>
-    <button id="pedir-de-novo" class="link" type="button">Pedir outro código</button>
+  <section id="tela-codigo" class="tela">
+    <div class="painel">
+      <h1>Quase lá!</h1>
+      <ol class="passos">
+        <li><b>1</b><span>Toque em <strong>WhatsApp</strong>, lá em cima, e avise a professora.</span></li>
+        <li><b>2</b><span>Ela vai responder com um código de 6 números.</span></li>
+        <li><b>3</b><span>Digite o código aqui embaixo.</span></li>
+      </ol>
+      <form id="form-codigo">
+        <label for="codigo">Código</label>
+        <input id="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="······" required>
+        <button class="btn" type="submit">Liberar aparelho</button>
+      </form>
+      <div id="msg-codigo" class="msg"></div>
+      <button id="pedir-de-novo" class="link" type="button">Pedir outro código</button>
     </div>
-    <div class="assinatura">Profª Ana Clara T. Arrais</div>
-  </div>
-</section>
+    <p class="rodape">O código vale por 24 horas e só funciona neste aparelho.</p>
+  </section>
 
-<section id="tela-lista" class="tela">
-  <div class="lousa">
-    <div class="conteudo">
-    <h1 id="ola">Olá!</h1>
-    <span class="sublinhado"></span>
-    <p>Escolha a atividade de hoje:</p>
+  <section id="tela-lista" class="tela">
+    <div class="boasvindas">
+      <h1 id="ola">Olá!</h1>
+      <p class="sub">Escolha uma atividade para começar.</p>
+    </div>
     <ul id="lista-sites" class="lista"></ul>
     <div id="msg-lista" class="msg"></div>
-    </div>
-    <div class="assinatura">Profª Ana Clara T. Arrais</div>
-  </div>
-</section>
+  </section>
+</div>
 
 <section id="tela-site" class="tela">
   <div class="barra">
-    <button id="voltar" type="button">← Voltar</button>
-    <span id="licenca"></span>
+    <button id="voltar" type="button" aria-label="Voltar para a lista">←<span> Atividades</span></button>
+    <div class="barra-texto">
+      <strong id="titulo-atividade"></strong>
+      <small id="licenca"></small>
+    </div>
   </div>
   <iframe id="quadro" title="Atividade"></iframe>
 </section>
@@ -191,6 +259,9 @@
 <script>
   const FUNCAO = SUPABASE_URL.replace(/\/+$/, "") + "/functions/v1/acesso";
   const $ = (id) => document.getElementById(id);
+  const CORES = [
+    ["#2F6FEB", "#DDEBFF"], ["#FF5C8A", "#FFE1EA"], ["#1F9E6E", "#DDF7EC"], ["#E8A400", "#FFF1C2"],
+  ];
 
   // Guarda pequena no navegador (o "crachá" e o pedido em andamento)
   const guarda = {
@@ -199,11 +270,18 @@
     apagar(chave) { try { localStorage.removeItem(chave); } catch {} },
   };
 
+  function linkWhatsApp(tela) {
+    let texto = "Olá, professora!";
+    if (tela === "tela-entrar") texto = "Olá, professora! Quero saber mais sobre as atividades.";
+    if (tela === "tela-codigo") texto = "Olá, professora! Pedi o código de acesso para o e-mail " + (guarda.ler("pedido_email") || "") + ".";
+    return "https://wa.me/" + WHATSAPP_PROFESSORA + "?text=" + encodeURIComponent(texto);
+  }
+
   function mostrar(tela) {
     document.querySelectorAll(".tela").forEach((t) => t.classList.remove("ativa"));
     $(tela).classList.add("ativa");
-    $("botao-whatsapp").style.display = tela === "tela-site" ? "none" : "";
-    $("botao-whatsapp").href = linkWhatsApp(tela === "tela-codigo" ? guarda.ler("pedido_email") : "");
+    document.body.dataset.tela = tela;
+    $("botao-whatsapp").href = linkWhatsApp(tela);
     window.scrollTo(0, 0);
   }
 
@@ -237,13 +315,6 @@
   async function ocupado(botao, tarefa) {
     botao.disabled = true;
     try { await tarefa(); } finally { botao.disabled = false; }
-  }
-
-  function linkWhatsApp(email) {
-    const texto = email
-      ? "Olá, professora! Pedi o código de acesso para o e-mail " + email + "."
-      : "Olá, professora!";
-    return "https://wa.me/" + WHATSAPP_PROFESSORA + "?text=" + encodeURIComponent(texto);
   }
 
   // ---------- 1. Pedir código ----------
@@ -310,6 +381,11 @@
     return false;
   }
 
+  function letraDoTitulo(titulo) {
+    const m = titulo.match(/\bde\s+([A-Za-zÀ-ÿ])/);
+    return (m ? m[1] : titulo.trim()[0] || "?").toUpperCase();
+  }
+
   async function carregarLista() {
     aviso("msg-lista", "");
     try {
@@ -323,11 +399,29 @@
         li.textContent = "Nenhuma atividade publicada ainda.";
         ul.append(li);
       }
-      r.sites.forEach((s) => {
+      r.sites.forEach((s, i) => {
+        const [cor, fundo] = CORES[i % CORES.length];
         const li = document.createElement("li");
         const b = document.createElement("button");
         b.type = "button";
-        b.textContent = s.titulo;
+        b.className = "mod";
+        b.style.setProperty("--c", cor);
+        b.style.setProperty("--cc", fundo);
+        const selo = document.createElement("span");
+        selo.className = "selo";
+        selo.setAttribute("aria-hidden", "true");
+        selo.textContent = letraDoTitulo(s.titulo);
+        const texto = document.createElement("span");
+        const titulo = document.createElement("strong");
+        titulo.textContent = s.titulo;
+        const dica = document.createElement("small");
+        dica.textContent = "Abrir atividade";
+        texto.append(titulo, dica);
+        const seta = document.createElement("span");
+        seta.className = "seta";
+        seta.setAttribute("aria-hidden", "true");
+        seta.textContent = "→";
+        b.append(selo, texto, seta);
         b.addEventListener("click", () => ocupado(b, () => abrirSite(s.slug)));
         li.append(b);
         ul.append(li);
@@ -355,7 +449,8 @@
       const html = /<\/body>/i.test(r.html)
         ? r.html.replace(/<\/body>(?![\s\S]*<\/body>)/i, marcaDagua(r.familia) + "</body>")
         : r.html + marcaDagua(r.familia);
-      $("licenca").textContent = r.titulo + " · Licenciado para " + r.familia;
+      $("titulo-atividade").textContent = r.titulo;
+      $("licenca").textContent = "Licenciado para " + r.familia;
       $("quadro").srcdoc = html;
       mostrar("tela-site");
     } catch (e) {
@@ -369,8 +464,6 @@
   });
 
   // ---------- Início ----------
-  $("whats-inicio").href = "https://wa.me/" + WHATSAPP_PROFESSORA + "?text=" +
-    encodeURIComponent("Olá, professora! Quero saber mais sobre as atividades.");
   if (guarda.ler("cracha")) carregarLista();
   else if (guarda.ler("pedido_id")) abrirTelaCodigo();
   else mostrar("tela-entrar");
