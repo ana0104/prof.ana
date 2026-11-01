@@ -445,6 +445,7 @@
       });
       if (r.sites.length === 1) {
         // só uma atividade publicada (a plataforma): abre direto
+        document.querySelector("#tela-site .barra").style.display = "none"; // sem a barra de cima
         mostrar("tela-lista");
         await abrirSite(r.sites[0].slug);
         return;
