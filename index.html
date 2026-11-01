@@ -443,6 +443,12 @@
         li.append(b);
         ul.append(li);
       });
+      if (r.sites.length === 1) {
+        // só uma atividade publicada (a plataforma): abre direto
+        mostrar("tela-lista");
+        await abrirSite(r.sites[0].slug);
+        return;
+      }
       mostrar("tela-lista");
     } catch (e) {
       if (!semCracha(e)) {
