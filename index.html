@@ -196,6 +196,15 @@
     .selo { width: 64px; height: 64px; font-size: 2.1rem; }
     .barra { padding: 6px 20px; }
   }
+  /* ---------- Centralizar no computador ---------- */
+  @media (min-width: 640px) {
+    .wrap { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+    .wrap > .tela.ativa { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px 0 72px; }
+    #tela-entrar .painel, #tela-codigo .painel { margin-top: 0; width: 100%; }
+    #tela-lista .boasvindas { text-align: center; margin: 0 0 32px; }
+    #tela-lista .lista { justify-content: center; grid-template-columns: repeat(auto-fit, minmax(300px, 440px)); }
+    #tela-lista .msg { text-align: center; }
+  }
 </style>
 </head>
 <body>
