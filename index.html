@@ -196,6 +196,13 @@
     .selo { width: 64px; height: 64px; font-size: 2.1rem; }
     .barra { padding: 6px 20px; }
   }
+  /* ---------- Computador: conteúdo à esquerda e nome no canto direito ---------- */
+  @media (min-width: 1024px) {
+    .wrap { max-width: none; padding: 28px 48px 56px; }
+    .topo { justify-content: flex-end; }
+    .topo .nome { order: 2; }
+    .lista { grid-template-columns: repeat(auto-fill, minmax(320px, 440px)); }
+  }
 </style>
 </head>
 <body>
