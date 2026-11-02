@@ -244,6 +244,12 @@
   #tela-lista .mod strong { font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400; font-size: 1.55rem; line-height: 1.1; letter-spacing: 1.2px; }
   #tela-lista .mod small { color: var(--muted); font-weight: 700; }
   #tela-lista .selo { display: none; }
+  /* ---------- Nome da professora assentado na pauta ---------- */
+  .wrap { padding-top: 0; }
+  .topo { --pauta: 32px; align-items: flex-end; height: calc(var(--pauta) * 2); min-height: 0; }
+  @media (min-width: 1024px) { .topo { --pauta: 36px; } }
+  .nome { line-height: 1; position: relative; top: calc(.181em - 1px); }
+  .whats { align-self: center; }
 </style>
 </head>
 <body>
