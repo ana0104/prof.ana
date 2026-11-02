@@ -214,7 +214,6 @@
     min-height: 100vh; min-height: 100dvh;
     background-color: #fff;
     background-image:
-      linear-gradient(90deg, transparent 0 46px, rgba(255,92,138,.45) 46px 48px, transparent 48px),
       repeating-linear-gradient(180deg, transparent 0 31px, rgba(47,111,235,.16) 31px 32px);
     background-size: auto, auto;
     background-attachment: scroll;
@@ -223,7 +222,6 @@
     :root:not([data-theme="light"]) body:not([data-tela="tela-site"]) {
       background-color: #141833;
       background-image:
-        linear-gradient(90deg, transparent 0 46px, rgba(255,122,140,.35) 46px 48px, transparent 48px),
         repeating-linear-gradient(180deg, transparent 0 31px, rgba(127,168,255,.14) 31px 32px);
     }
   }
@@ -234,10 +232,8 @@
   @media (min-width: 1024px) {
     body:not([data-tela="tela-site"]) {
       background-image:
-        linear-gradient(90deg, transparent 0 72px, rgba(255,92,138,.45) 72px 74px, transparent 74px),
         repeating-linear-gradient(180deg, transparent 0 35px, rgba(47,111,235,.16) 35px 36px);
     }
-    .wrap { padding-left: 104px; }
   }
   .wrap { position: relative; z-index: 1; }
   .nome { color: var(--ink); }
