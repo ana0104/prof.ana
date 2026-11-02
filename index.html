@@ -210,53 +210,46 @@
   .nome { font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400; letter-spacing: 1.2px; color: var(--board); background: none; padding: 0; }
   .btn { color: #fff; background: var(--blue); text-transform: none; letter-spacing: 0; }
   .painel { border-radius: 10px; }
-  /* ---------- Fundo de lousa nas telas de entrada ---------- */
-  html {
-    min-height: 100%;
-    background: radial-gradient(ellipse at 50% 30%, var(--board-hi) 0, var(--board) 55%, var(--board-lo) 100%) var(--board);
+  /* ---------- Fundo de folha de caderno ---------- */
+  :root:not([data-theme="dark"]) { --bg: #ffffff; }
+  body:not([data-tela="tela-site"]) {
+    min-height: 100vh; min-height: 100dvh;
+    background-color: #fff;
+    background-image:
+      linear-gradient(90deg, transparent 0 46px, rgba(255,92,138,.45) 46px 48px, transparent 48px),
+      repeating-linear-gradient(180deg, transparent 0 31px, rgba(47,111,235,.16) 31px 32px);
+    background-size: auto, auto;
+    background-attachment: scroll;
   }
-  body:not([data-tela="tela-site"]) { background: transparent; min-height: 100vh; min-height: 100dvh; }
-  /* moldura de madeira fixa na tela (funciona bem no celular) */
-  body:not([data-tela="tela-site"])::after {
-    content: ""; position: fixed; inset: 0; z-index: 2; pointer-events: none;
-    border: 10px solid var(--wood); box-shadow: inset 0 0 0 3px var(--wood-dk), inset 0 0 70px rgba(0,0,0,.30);
-  }
-  /* rabiscos de giz bem clarinhos (só no computador) */
-  body:not([data-tela="tela-site"])::before {
-    content: "A B C   ·   1 + 1 = 2   ·   ✓"; position: fixed; right: 34px; bottom: 30px; z-index: 0;
-    font-family: "Caveat", "Segoe Script", cursive; font-size: 1.5rem; color: rgba(255,255,255,.16);
-    transform: rotate(-4deg); pointer-events: none; white-space: nowrap;
-  }
-  @media (max-width: 1023px) {
-    body:not([data-tela="tela-site"])::before { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body:not([data-tela="tela-site"]) {
+      background-color: #141833;
+      background-image:
+        linear-gradient(90deg, transparent 0 46px, rgba(255,122,140,.35) 46px 48px, transparent 48px),
+        repeating-linear-gradient(180deg, transparent 0 31px, rgba(127,168,255,.14) 31px 32px);
+    }
   }
   @media (max-width: 639px) {
-    body:not([data-tela="tela-site"])::after { border-width: 6px; box-shadow: inset 0 0 0 2px var(--wood-dk), inset 0 0 40px rgba(0,0,0,.28); }
-    .wrap { padding: 22px 22px 40px; }
+    body:not([data-tela="tela-site"]) { background-image: repeating-linear-gradient(180deg, transparent 0 31px, rgba(47,111,235,.14) 31px 32px); }
+    .wrap { padding: 20px 18px 40px; }
+  }
+  @media (min-width: 1024px) {
+    body:not([data-tela="tela-site"]) {
+      background-image:
+        linear-gradient(90deg, transparent 0 72px, rgba(255,92,138,.45) 72px 74px, transparent 74px),
+        repeating-linear-gradient(180deg, transparent 0 35px, rgba(47,111,235,.16) 35px 36px);
+    }
+    .wrap { padding-left: 104px; }
   }
   .wrap { position: relative; z-index: 1; }
-  /* textos que ficam direto na lousa viram giz */
-  .nome { color: #fff; text-shadow: 2px 2px 0 rgba(0,0,0,.35); }
-  .boasvindas h1 { color: #fff; text-shadow: 3px 3px 0 rgba(0,0,0,.35); }
-  .boasvindas .sub, .rodape { color: rgba(255,255,255,.85); }
-  .painel { box-shadow: 8px 8px 0 rgba(0,0,0,.45); border-color: #1B1F3B; }
-  .mod { box-shadow: 8px 8px 0 var(--c), 10px 14px 22px rgba(0,0,0,.35); }
-  #tela-lista .msg { background: var(--paper); }
-  /* ---------- Botões das plataformas desenhados a giz ---------- */
-  #tela-lista .mod {
-    background: rgba(255,255,255,.04); color: #fff;
-    border: 3px solid rgba(255,255,255,.88); border-radius: 14px 10px 16px 9px / 10px 15px 9px 14px;
-    box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 0 10px rgba(255,255,255,.12);
-    filter: drop-shadow(1px 1px 0 rgba(255,255,255,.15));
-    transition: transform .12s ease, background .12s ease;
-  }
-  #tela-lista .mod:hover { transform: rotate(-.6deg) scale(1.01); background: rgba(255,255,255,.09); box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 0 14px rgba(255,255,255,.18); }
-  #tela-lista .mod:active { transform: scale(.99); box-shadow: 0 0 0 1px rgba(255,255,255,.18); }
-  #tela-lista .mod strong { font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400; font-size: 1.55rem; line-height: 1.1; letter-spacing: 1.2px; text-shadow: 2px 2px 0 rgba(0,0,0,.3); }
-  #tela-lista .mod small { color: rgba(255,255,255,.72); font-weight: 600; letter-spacing: .2px; }
+  .nome { color: var(--board); }
+  .boasvindas h1 { color: var(--ink); }
+  .painel { box-shadow: 6px 6px 0 var(--ink); }
+  /* ---------- Botões das plataformas (como os cartões da plataforma) ---------- */
+  #tela-lista .mod { padding-left: 22px; border-radius: 10px; }
+  #tela-lista .mod strong { font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400; font-size: 1.55rem; line-height: 1.1; letter-spacing: 1.2px; }
+  #tela-lista .mod small { color: var(--muted); font-weight: 700; }
   #tela-lista .selo { display: none; }
-  #tela-lista .mod { padding-left: 22px; }
-  #tela-lista .seta { color: #fff; background: transparent; border: 2.5px solid rgba(255,255,255,.85); }
 </style>
 </head>
 <body>
