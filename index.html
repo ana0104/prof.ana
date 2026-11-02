@@ -200,10 +200,8 @@
   /* ---------- Computador: conteúdo à esquerda e nome no canto direito ---------- */
   @media (min-width: 1024px) {
     .wrap { max-width: none; padding: 28px 48px 56px; }
-    .topo { justify-content: flex-end; }
-    .topo .nome { order: 2; }
     .lista { grid-template-columns: repeat(auto-fill, minmax(320px, 440px)); }
-    .boasvindas { margin: -24px 0 30px; padding-right: 280px; }
+    .boasvindas { margin: 36px 0 30px; }
   }
   /* ---------- Visual igual ao da plataforma ---------- */
   h1 { font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400; letter-spacing: 1.5px; line-height: 1.05; }
@@ -242,7 +240,7 @@
     .wrap { padding-left: 104px; }
   }
   .wrap { position: relative; z-index: 1; }
-  .nome { color: var(--board); }
+  .nome { color: var(--ink); }
   .boasvindas h1 { color: var(--ink); }
   .painel { box-shadow: 6px 6px 0 var(--ink); }
   /* ---------- Botões das plataformas (como os cartões da plataforma) ---------- */
