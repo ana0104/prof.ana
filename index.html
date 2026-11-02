@@ -69,6 +69,7 @@
   .tela.ativa { display: block; }
   body[data-tela="tela-site"] .wrap { display: none; }
   body[data-tela="tela-lista"] .whats { visibility: hidden; }
+  body:not([data-tela]) .whats { visibility: hidden; } /* não pisca enquanto a página carrega */
 
   .painel {
     margin-top: 20px; padding: 22px 18px 20px;
