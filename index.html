@@ -202,7 +202,7 @@
     .topo { justify-content: flex-end; }
     .topo .nome { order: 2; }
     .lista { grid-template-columns: repeat(auto-fill, minmax(320px, 440px)); }
-    .boasvindas { margin: -40px 0 30px; padding-right: 280px; }
+    .boasvindas { margin: -24px 0 30px; padding-right: 280px; }
   }
   /* ---------- Visual igual ao da plataforma ---------- */
   h1 { font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400; letter-spacing: 1.5px; line-height: 1.05; }
@@ -244,6 +244,20 @@
     body:not([data-tela="tela-site"])::before { font-size: 1.15rem; right: 18px; bottom: 18px; }
     body:not([data-tela="tela-site"])::after { display: none; }
   }
+  /* ---------- Botões das plataformas desenhados a giz ---------- */
+  #tela-lista .mod {
+    background: rgba(255,255,255,.04); color: #fff;
+    border: 3px solid rgba(255,255,255,.88); border-radius: 14px 10px 16px 9px / 10px 15px 9px 14px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 0 10px rgba(255,255,255,.12);
+    filter: drop-shadow(1px 1px 0 rgba(255,255,255,.15));
+    transition: transform .12s ease, background .12s ease;
+  }
+  #tela-lista .mod:hover { transform: rotate(-.6deg) scale(1.01); background: rgba(255,255,255,.09); box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 0 14px rgba(255,255,255,.18); }
+  #tela-lista .mod:active { transform: scale(.99); box-shadow: 0 0 0 1px rgba(255,255,255,.18); }
+  #tela-lista .mod strong { font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; font-size: 1.75rem; line-height: 1.05; letter-spacing: .3px; text-shadow: 1px 1px 0 rgba(0,0,0,.25); }
+  #tela-lista .mod small { color: var(--yellow); opacity: .95; }
+  #tela-lista .selo { color: #fff; background: transparent; border: 3px dashed rgba(255,255,255,.85); font-family: "Caveat", "Segoe Script", cursive; font-weight: 700; }
+  #tela-lista .seta { color: #fff; background: transparent; border: 2.5px solid rgba(255,255,255,.85); }
 </style>
 </head>
 <body>
