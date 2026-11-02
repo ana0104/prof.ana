@@ -246,12 +246,10 @@
   #tela-lista .selo { display: none; }
   /* ---------- Nome da professora assentado na pauta ---------- */
   .wrap { padding-top: 0; }
-  .topo { --pauta: 32px; align-items: flex-end; height: calc(var(--pauta) * 2); min-height: 0; }
+  .topo { --pauta: 32px; align-items: flex-end; height: var(--pauta); min-height: 0; }
   @media (min-width: 1024px) { .topo { --pauta: 36px; } }
   .nome { line-height: 1; position: relative; top: calc(.181em - 1px); }
   .whats { align-self: flex-end; margin-bottom: 1px; }
-  /* No celular, tudo sobe uma pauta */
-  @media (max-width: 639px) { .topo { height: var(--pauta); } }
 </style>
 </head>
 <body>
