@@ -204,6 +204,14 @@
     .lista { grid-template-columns: repeat(auto-fill, minmax(320px, 440px)); }
     .boasvindas { margin: -40px 0 30px; padding-right: 280px; }
   }
+  /* ---------- Visual igual ao da plataforma ---------- */
+  :root:not([data-theme="dark"]) { --bg: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #141833; } }
+  body { background-image: none; }
+  h1 { font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400; letter-spacing: 1.5px; line-height: 1.05; }
+  .nome { font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400; letter-spacing: 1.2px; color: var(--board); background: none; padding: 0; }
+  .btn { color: #fff; background: var(--blue); text-transform: none; letter-spacing: 0; }
+  .painel { border-radius: 10px; }
 </style>
 </head>
 <body>
