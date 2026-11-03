@@ -200,7 +200,8 @@
   /* ---------- Computador: conteúdo à esquerda e nome no canto direito ---------- */
   @media (min-width: 1024px) {
     .wrap { max-width: none; padding: 28px 48px 56px; }
-    .lista { grid-template-columns: repeat(auto-fill, minmax(320px, 440px)); }
+    .lista { grid-template-columns: repeat(auto-fill, minmax(320px, 440px)); grid-auto-rows: 1fr; }
+    .lista li { display: flex; }
     .boasvindas { margin: 36px 0 30px; }
   }
   /* ---------- Visual igual ao da plataforma ---------- */
