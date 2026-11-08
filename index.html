@@ -278,11 +278,11 @@
   <section id="tela-entrar" class="tela">
     <div class="painel">
       <h1>Área das Famílias</h1>
-      <p class="sub">Digite seu e-mail e o nome do responsável. Depois, avise a professora pelo WhatsApp e ela te manda o código.</p>
+      <p class="sub">Digite seu e-mail e o nome do usuário. Depois, avise a professora pelo WhatsApp e ela te manda o código.</p>
       <form id="form-entrar">
         <label for="email">E-mail (Gmail)</label>
         <input id="email" type="email" autocomplete="email" placeholder="seuemail@gmail.com" required>
-        <label for="responsavel">Nome do responsável</label>
+        <label for="responsavel">Nome do usuário</label>
         <input id="responsavel" type="text" maxlength="60" autocomplete="name" placeholder="Ex.: Maria Silva" required>
         <button class="btn" type="submit">Pedir código</button>
       </form>
@@ -347,7 +347,7 @@
   function linkWhatsApp(tela) {
     let texto = "Olá, professora!";
     if (tela === "tela-entrar") texto = "Olá, professora! Quero saber mais sobre as atividades.";
-    if (tela === "tela-codigo") texto = "Olá, professora! Sou " + (guarda.ler("pedido_responsavel") || "o responsável") + ". Pedi o código de acesso para o e-mail " + (guarda.ler("pedido_email") || "") + ".";
+    if (tela === "tela-codigo") texto = "Olá, professora! Sou " + (guarda.ler("pedido_responsavel") || "usuário") + ". Pedi o código de acesso para o e-mail " + (guarda.ler("pedido_email") || "") + ".";
     return "https://wa.me/" + WHATSAPP_PROFESSORA + "?text=" + encodeURIComponent(texto);
   }
 
@@ -400,7 +400,7 @@
       const email = $("email").value.trim().toLowerCase();
       const responsavel = $("responsavel").value.trim().replace(/\s+/g, " ");
       if (responsavel.length < 2) {
-        aviso("msg-entrar", "Digite o nome do responsável.");
+        aviso("msg-entrar", "Digite o nome do usuário.");
         return;
       }
       try {
