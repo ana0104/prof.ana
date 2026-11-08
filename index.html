@@ -278,12 +278,12 @@
   <section id="tela-entrar" class="tela">
     <div class="painel">
       <h1>Área das Famílias</h1>
-      <p class="sub">Digite o e-mail usado na compra para liberar este aparelho.</p>
+      <p class="sub">Digite seu e-mail e o nome do responsável. Depois, avise a professora pelo WhatsApp e ela te manda o código.</p>
       <form id="form-entrar">
-        <label for="email">E-mail da compra</label>
-        <input id="email" type="email" autocomplete="email" placeholder="seuemail@exemplo.com" required>
-        <label for="apelido">Nome deste aparelho</label>
-        <input id="apelido" type="text" maxlength="60" placeholder="Ex.: Celular da mãe">
+        <label for="email">E-mail (Gmail)</label>
+        <input id="email" type="email" autocomplete="email" placeholder="seuemail@gmail.com" required>
+        <label for="responsavel">Nome do responsável</label>
+        <input id="responsavel" type="text" maxlength="60" autocomplete="name" placeholder="Ex.: Maria Silva" required>
         <button class="btn" type="submit">Pedir código</button>
       </form>
       <div id="msg-entrar" class="msg"></div>
@@ -294,9 +294,9 @@
     <div class="painel">
       <h1>Quase lá!</h1>
       <ol class="passos">
-        <li><b>1</b><span>Toque em <strong>Contato</strong>, lá em cima, e avise a professora pelo WhatsApp.</span></li>
-        <li><b>2</b><span>Ela vai responder com um código de 6 números.</span></li>
-        <li><b>3</b><span>Digite o código aqui embaixo.</span></li>
+        <li><b>1</b><span>Toque em <strong>Contato</strong>, lá em cima, e avise a professora pelo WhatsApp que você pediu o código.</span></li>
+        <li><b>2</b><span>Pode sair desta página e ficar tranquilo(a): ela responde com um código de 6 números em até 24 horas.</span></li>
+        <li><b>3</b><span>Quando receber, volte aqui neste mesmo aparelho e digite o código.</span></li>
       </ol>
       <form id="form-codigo">
         <label for="codigo">Código</label>
@@ -306,7 +306,7 @@
       <div id="msg-codigo" class="msg"></div>
       <button id="pedir-de-novo" class="link" type="button">Pedir outro código</button>
     </div>
-    <p class="rodape">O código vale por 24 horas e só funciona neste aparelho.</p>
+    <p class="rodape">O código vale por 24 horas e só funciona neste aparelho. Seu pedido fica guardado aqui, então pode fechar a página.</p>
   </section>
 
   <section id="tela-lista" class="tela">
@@ -347,7 +347,7 @@
   function linkWhatsApp(tela) {
     let texto = "Olá, professora!";
     if (tela === "tela-entrar") texto = "Olá, professora! Quero saber mais sobre as atividades.";
-    if (tela === "tela-codigo") texto = "Olá, professora! Pedi o código de acesso para o e-mail " + (guarda.ler("pedido_email") || "") + ".";
+    if (tela === "tela-codigo") texto = "Olá, professora! Sou " + (guarda.ler("pedido_responsavel") || "o responsável") + ". Pedi o código de acesso para o e-mail " + (guarda.ler("pedido_email") || "") + ".";
     return "https://wa.me/" + WHATSAPP_PROFESSORA + "?text=" + encodeURIComponent(texto);
   }
 
@@ -398,10 +398,17 @@
     ocupado(botao, async () => {
       aviso("msg-entrar", "");
       const email = $("email").value.trim().toLowerCase();
+      const responsavel = $("responsavel").value.trim().replace(/\s+/g, " ");
+      if (responsavel.length < 2) {
+        aviso("msg-entrar", "Digite o nome do responsável.");
+        return;
+      }
       try {
-        const r = await chamar({ acao: "pedir_codigo", email, apelido: $("apelido").value.trim() });
+        // "apelido" segue indo junto (mesmo valor) para o servidor antigo continuar funcionando
+        const r = await chamar({ acao: "pedir_codigo", email, responsavel, apelido: responsavel });
         guarda.gravar("pedido_id", r.pedido_id);
         guarda.gravar("pedido_email", email);
+        guarda.gravar("pedido_responsavel", responsavel);
         abrirTelaCodigo();
       } catch (e) {
         aviso("msg-entrar", e.message);
@@ -440,6 +447,7 @@
   $("pedir-de-novo").addEventListener("click", () => {
     guarda.apagar("pedido_id");
     $("email").value = guarda.ler("pedido_email") || "";
+    $("responsavel").value = guarda.ler("pedido_responsavel") || "";
     aviso("msg-entrar", "");
     mostrar("tela-entrar");
   });
