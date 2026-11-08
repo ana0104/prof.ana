@@ -14,17 +14,17 @@
     --bad: #D6334A; --badbg: #FDE3E7; --info: #2F6FEB; --infobg: #E3EDFF;
     --board: #1f4d3a; --board-hi: #2c6b52; --board-lo: #183c2d;
     --wood: #b07a3c; --wood-dk: #8a5d2a; --chalk: #ffffff;
-    --zap: #17994A; --buy-bg: #FFF4CC;
+    --zap: #10823D; --buy-bg: #FFF8DB; --buy-bg2: #FFE6A6;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #141833; --dots: #1f2550; --paper: #1e2346; --ink: #F2F4FF; --muted: #aab0d6;
-      --blue: #7FA8FF; --bad: #FF7A8C; --badbg: #3d1c29; --info: #7FA8FF; --infobg: #1f2a55; --buy-bg: #2b2a3f; --ok: #5FD6A3;
+      --blue: #7FA8FF; --bad: #FF7A8C; --badbg: #3d1c29; --info: #7FA8FF; --infobg: #1f2a55; --buy-bg: #2b2a3f; --buy-bg2: #3b2f4a; --ok: #5FD6A3;
     }
   }
   :root[data-theme="dark"] {
     --bg: #141833; --dots: #1f2550; --paper: #1e2346; --ink: #F2F4FF; --muted: #aab0d6;
-    --blue: #7FA8FF; --bad: #FF7A8C; --badbg: #3d1c29; --info: #7FA8FF; --infobg: #1f2a55; --buy-bg: #2b2a3f; --ok: #5FD6A3;
+    --blue: #7FA8FF; --bad: #FF7A8C; --badbg: #3d1c29; --info: #7FA8FF; --infobg: #1f2a55; --buy-bg: #2b2a3f; --buy-bg2: #3b2f4a; --ok: #5FD6A3;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -87,7 +87,7 @@
     width: 100%; font: inherit; padding: 11px 13px; color: var(--ink); background: var(--paper);
     border: 3px solid var(--ink); border-radius: 6px;
   }
-  input::placeholder { color: var(--muted); opacity: .75; }
+  input::placeholder { color: var(--muted); opacity: .9; }
   input:focus { outline: 3px solid var(--blue); outline-offset: 2px; }
   #codigo {
     font-family: "Bangers", Impact, sans-serif; font-size: 2.2rem; letter-spacing: .4em;
@@ -107,7 +107,7 @@
   .btn:focus-visible, .link:focus-visible, .mod:focus-visible, .whats:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 
   .link {
-    display: block; margin: 16px auto 0; padding: 4px; cursor: pointer;
+    display: block; margin: 8px auto 0; padding: 12px 16px; cursor: pointer;
     font: inherit; font-weight: 800; color: var(--blue); background: none; border: 0;
   }
 
@@ -253,39 +253,47 @@
   .whats { align-self: flex-end; margin-bottom: 1px; }
   /* Computador: botao Contato menor para caber numa pauta de 36px */
   @media (min-width: 1024px) { .nome { top: calc(.181em - 2px); } .whats { font-size: .78rem; padding: 3px 13px 3px 10px; } }
-  /* ---------- Visual das telas de entrada (mais leve e arredondado) ---------- */
-  #tela-entrar .painel, #tela-codigo .painel {
-    border-width: 2px; border-radius: 18px;
-    box-shadow: 0 2px 0 var(--ink), 0 18px 34px -16px rgba(27,31,59,.38);
+  /* ---------- Telas de entrada: mesmo estilo de caderno do resto do site ---------- */
+  #tela-entrar .painel + .painel { margin-top: 24px; }
+  #tela-entrar h1, #tela-codigo h1 { font-size: clamp(2.1rem, 9.5vw, 2.5rem); margin-bottom: 6px; }
+  /* cartão "Ainda não comprou?" no mesmo formato dos cartões das atividades */
+  .painel-compra { text-align: center; box-shadow: 0 0 0 6px var(--yellow), 6px 6px 0 6px var(--ink); }
+  .painel-compra { padding: 16px; }
+  .compra-topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; text-align: left; }
+  .painel-compra h2 {
+    margin: 0; color: var(--ink); text-wrap: balance;
+    font-family: "Bangers", Impact, "Arial Black", sans-serif; font-weight: 400;
+    font-size: clamp(1.7rem, 7.5vw, 2rem); letter-spacing: 1.5px; line-height: 1.05;
   }
-  #tela-entrar .painel + .painel { margin-top: 16px; }
-  #tela-entrar h1 { font-size: clamp(2rem, 9vw, 2.4rem); margin-bottom: 6px; }
-  #tela-entrar input, #tela-codigo input { border-width: 2px; border-radius: 12px; padding: 12px 14px; }
-  #tela-entrar .btn, #tela-codigo .btn { border-width: 2px; border-radius: 12px; box-shadow: 0 3px 0 var(--ink); }
-  #tela-entrar .btn:hover, #tela-codigo .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--ink); }
-  #tela-entrar .btn:active, #tela-codigo .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
-  #tela-entrar label { font-size: .88rem; letter-spacing: .2px; }
-  .painel-compra { background: var(--buy-bg) !important; text-align: center; }
-  .etiqueta {
-    display: inline-block; padding: 3px 12px; font-weight: 800; font-size: .72rem; letter-spacing: 1.4px; text-transform: uppercase;
-    color: var(--ink); background: var(--yellow); border: 2px solid var(--ink); border-radius: 999px;
+  .painel-compra .nota { margin: 8px 0 0; color: var(--muted); font-weight: 700; font-size: .9rem; line-height: 1.35; }
+  /* preço em "selo", igual aos selos redondos das atividades */
+  .preco {
+    flex: none; display: grid; place-items: center; align-content: center; width: 88px; height: 88px; margin: 0 4px 0 0;
+    color: #1B1F3B; background: var(--yellow); border: 3px solid var(--ink); border-radius: 50%;
+    box-shadow: 3px 3px 0 var(--ink); transform: rotate(-6deg);
   }
-  .painel-compra h2 { font: 700 clamp(2rem, 9vw, 2.4rem)/1 "Caveat", "Segoe Script", cursive; margin: 10px 0 2px; color: var(--ink); }
-  .preco { display: flex; align-items: baseline; justify-content: center; gap: 8px; margin: 4px 0 2px; }
-  .preco b { font: 400 3.4rem/1 "Bangers", Impact, "Arial Black", sans-serif; letter-spacing: 1.5px; color: var(--ink); }
-  .preco span { font-weight: 800; font-size: 1.05rem; color: var(--muted); }
-  .painel-compra .nota { margin: 0; font-weight: 800; font-size: .95rem; color: var(--ok); }
-  .painel-compra .aviso { margin: 12px 0 0; color: var(--muted); font-weight: 600; font-size: .9rem; }
+  .preco b { font: 400 1.7rem/1 "Bangers", Impact, "Arial Black", sans-serif; letter-spacing: 1px; white-space: nowrap; }
+  .preco span { font-weight: 900; font-size: .8rem; margin-top: -1px; }
+  .painel-compra .aviso { margin: 12px 0 0; color: var(--muted); font-weight: 600; font-size: .9rem; line-height: 1.4; text-align: center; }
+  /* ícones nos campos */
+  #tela-entrar #email, #tela-entrar #responsavel { padding-left: 46px; background-repeat: no-repeat; background-position: 15px 50%; background-size: 20px; }
+  #email { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a90b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='3'/%3E%3Cpath d='m4 7 8 6 8-6'/%3E%3C/svg%3E"); }
+  #responsavel { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a90b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E"); }
+  /* entrada suave */
+  @keyframes sobe { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  #tela-entrar.ativa .painel, #tela-codigo.ativa .painel { animation: sobe .55s cubic-bezier(.2,.7,.2,1) both; }
+  #tela-entrar.ativa .painel + .painel { animation-delay: .12s; }
+  @media (prefers-reduced-motion: reduce) { #tela-entrar.ativa .painel, #tela-codigo.ativa .painel { animation: none; } }
   .comprar {
-    display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; padding: 13px 16px;
+    display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; padding: 12px 16px;
     font-weight: 800; font-size: 1rem; text-decoration: none; color: #fff; background: var(--zap);
-    border: 2px solid var(--ink); border-radius: 12px; box-shadow: 0 3px 0 var(--ink);
+    border: 3px solid var(--ink); border-radius: 6px; box-shadow: 4px 4px 0 var(--ink);
     transition: transform .08s ease, box-shadow .08s ease;
   }
   .comprar svg { width: 20px; height: 20px; flex: none; }
-  #botao-avisar { margin: 4px 0 20px; }
-  .comprar:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--ink); }
-  .comprar:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+  #botao-avisar { margin: 8px 0 24px; }
+  .comprar:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+  .comprar:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
   .comprar:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 </style>
 </head>
@@ -307,15 +315,18 @@
 
   <section id="tela-entrar" class="tela">
     <div class="painel painel-compra">
-      <span class="etiqueta">Acesso individual</span>
-      <h2>Ainda não comprou?</h2>
-      <div class="preco"><b>R$ 40</b><span>por mês</span></div>
-      <p class="nota">Pague mês a mês e pare de pagar quando quiser.</p>
-      <p class="aviso">Se você recebeu este link de outra pessoa, o acesso é individual. Fale com a professora pelo WhatsApp para comprar o seu.</p>
+      <div class="compra-topo">
+        <div class="compra-texto">
+          <h2>Ainda não comprou?</h2>
+          <p class="nota">Pague mês a mês e pare de pagar quando quiser.</p>
+        </div>
+        <div class="preco"><b>R$ 40</b><span>/mês</span></div>
+      </div>
       <a id="botao-comprar" class="comprar" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Quero comprar o meu acesso
       </a>
+      <p class="aviso">Recebeu este link de outra pessoa? O acesso é individual: fale com a professora para comprar o seu.</p>
     </div>
 
     <div class="painel">
