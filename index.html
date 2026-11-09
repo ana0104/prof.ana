@@ -291,6 +291,25 @@
   #tela-entrar.ativa .painel, #tela-codigo.ativa .painel { animation: sobe .55s cubic-bezier(.2,.7,.2,1) both; }
   #tela-entrar.ativa .painel + .painel { animation-delay: .12s; }
   @media (prefers-reduced-motion: reduce) { #tela-entrar.ativa .painel, #tela-codigo.ativa .painel { animation: none; } }
+  /* computador/tablet: caixas na largura da grade das atividades, em vez de uma coluna estreita no meio */
+  @media (min-width: 640px) {
+    #tela-entrar .painel { max-width: 1400px; margin-left: 0; margin-right: 0; }
+    #tela-codigo .painel, .rodape { max-width: 760px; margin-left: 0; margin-right: 0; }
+    .rodape { text-align: left; }
+    #tela-entrar .painel + .painel { margin-top: 24px; }
+    .painel-compra .comprar { max-width: 440px; margin-left: auto; margin-right: auto; }
+  }
+  @media (min-width: 800px) {
+    #tela-entrar .painel { padding: 28px 32px; }
+    #tela-entrar h1, #tela-codigo h1, .painel-compra h2 { font-size: 2.3rem; }
+    .compra-topo { gap: 32px; }
+    .painel-compra .nota, #tela-entrar .sub { font-size: 1rem; }
+    .preco { width: 112px; height: 112px; }
+    .preco b { font-size: 2.1rem; }
+    .preco span { font-size: .95rem; }
+    #form-entrar { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; grid-auto-flow: column; column-gap: 24px; }
+    #form-entrar .btn { grid-row: 3; grid-column: 1 / -1; justify-self: center; width: 100%; max-width: 440px; }
+  }
   .comprar {
     display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; padding: 12px 16px;
     font-weight: 800; font-size: 1rem; text-decoration: none; color: #fff; background: var(--zap);
